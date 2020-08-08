@@ -24,9 +24,7 @@ da saude, assim como na maiorias das ciências, adota-se um *α* = 5%.
 Tamanho do efeito
 -----------------
 
-O tamanho do efeito é dado por:
-
-$d=\\frac{\\mu\_1-\\mu\_2}{\\sigma}$
+O tamanho do efeito é dado por: $d=\\frac{\\mu\_1-\\mu\_2}{\\sigma}$
 
 Sendo, *μ*<sub>1</sub> média do primeiro grupo, *μ*<sub>2</sub> média do
 segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen
@@ -57,13 +55,13 @@ Populações finitas
 Para estimação de proporções para populações finitas, (Bolfarine e
 Bussab 2005), a expressão para o tamanho da amostra é dada por:
 
-$$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$$
+$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$
 
 <p>
-Em que *z* \< *s**u**b* \> *a**l**p**h**a* \< *s**u**b*\> é o percentil
-da distribuição normal correspondente ao nível de significância *α*, *E*
-a margem de erro, *N* o tamanho da população e *p* alguma proporção de
-interesse provinda do instrumento de pesquisa.
+Em que *z*<sub>*α*</sub> é o percentil da distribuição normal
+correspondente ao nível de significância *α*, *E* a margem de erro, *N*
+o tamanho da população e *p* alguma proporção de interesse provinda do
+instrumento de pesquisa.
 </p>
 <p>
 Para possibilitar o cálculo do tamanho da amostra para as diferentes
@@ -117,13 +115,15 @@ for (i in 1:1000){
 paste0("Proporção estimada: ",round(mean(Amostra),2),"; I.C.(95%) = ","[",round(quantile(Amostra,0.025),2),";",round(quantile(Amostra,0.975),2),"]")
 ```
 
-    ## [1] "Proporção estimada: 0.47; I.C.(95%) = [0.42;0.51]"
+    ## [1] "Proporção estimada: 0.47; I.C.(95%) = [0.42;0.52]"
 
 <p>
 Transformando a fórmula para o cálculo do tamanho amostral, é possível
 verificar se os erros reais correspondem aos erros estimados pela
 fórmula:
 </p>
+
+$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1} \\therefore E = Erro = \\sqrt\\frac{\\frac{N}{n}-1}{\\frac{(N-1)}{p(1-p)z^2\_\\alpha}}$
 
 ``` r
 N <- 231
@@ -154,14 +154,14 @@ tabela
 ```
 
     ##   Erro real (%) Erro estimado (%) Amostra - 5% de sig Amostra - 10% de sig
-    ## 1           0.5         0.4572215            229.6252            229.05281
-    ## 2             1         0.9144430            225.5971            223.40334
-    ## 3             2         1.8288861            210.8055            203.34202
-    ## 4             3         2.7433291            190.0385            176.87077
-    ## 5             4         3.6577722            167.0055            149.60480
-    ## 6             5         4.5722152            144.4896            124.85768
-    ## 7             6         5.4866583            124.0487            103.85975
-    ## 8             7         6.4011013            106.2796             86.63988
+    ## 1           0.5         0.4606626            229.6252            229.05281
+    ## 2             1         0.9213252            225.5971            223.40334
+    ## 3             2         1.8426505            210.8055            203.34202
+    ## 4             3         2.7639757            190.0385            176.87077
+    ## 5             4         3.6853010            167.0055            149.60480
+    ## 6             5         4.6066262            144.4896            124.85768
+    ## 7             6         5.5279514            124.0487            103.85975
+    ## 8             7         6.4492767            106.2796             86.63988
 
 Populações infinitas
 --------------------
@@ -170,6 +170,8 @@ Populações infinitas
 A expressão para o tamanho da amostra para estimação de proporções para
 populações infinitas dada por:
 </p>
+
+$n=\\frac{p(1-p)z^2\_\\alpha}{E^2}$
 
 <p>
 Em que *z*<sub>*α*</sub> é o percentil da distribuição normal
@@ -235,13 +237,15 @@ for (i in 1:1000){
 paste0("Proporção estimada: ",round(mean(Amostra),2),"; I.C.(95%) = ","[",round(quantile(Amostra,0.025),2),";",round(quantile(Amostra,0.975),2),"]")
 ```
 
-    ## [1] "Proporção estimada: 0.5; I.C.(95%) = [0.43;0.56]"
+    ## [1] "Proporção estimada: 0.5; I.C.(95%) = [0.44;0.56]"
 
 <p>
 Transformando a fórmula para o cálculo do tamanho amostral para
 proporção de populações infinitas, é possível verificar se os erros
 reais correspondem aos erros estimados pela fórmula:
 </p>
+
+$n=\\frac{p(1-p)z^2\_\\alpha}{E^2} \\therefore E = Erro = \\sqrt\\frac{p(1-p)z^2\_\\alpha}{n}$
 
 ``` r
 p = aux5 = aux10 = c()
@@ -270,14 +274,14 @@ tabela
 ```
 
     ##   Erro real (%) Erro estimado (%) Amostra - 5% de sig Amostra - 10% de sig
-    ## 1           0.5          0.466752         1596.471871          1124.396804
-    ## 2             1          0.933504          399.117968           281.099201
-    ## 3             2          1.867008           99.779492            70.274800
-    ## 4             3          2.800512           44.346441            31.233245
-    ## 5             4          3.734016           24.944873            17.568700
-    ## 6             5          4.667520           15.964719            11.243968
-    ## 7             6          5.601024           11.086610             7.808311
-    ## 8             7          6.534528            8.145265             5.736718
+    ## 1           0.5         0.4562045         1596.471871          1124.396804
+    ## 2             1         0.9124091          399.117968           281.099201
+    ## 3             2         1.8248181           99.779492            70.274800
+    ## 4             3         2.7372272           44.346441            31.233245
+    ## 5             4         3.6496362           24.944873            17.568700
+    ## 6             5         4.5620453           15.964719            11.243968
+    ## 7             6         5.4744544           11.086610             7.808311
+    ## 8             7         6.3868634            8.145265             5.736718
 
 Comparação de proporções
 ========================
@@ -288,6 +292,8 @@ Transversal
 Para calcular o tamanho amostral necessário para comparar duas
 proporções, foi utilizada a metodologia proposta por Fleiss, 1981, em
 que a quantidade total de indivíduos em cada grupo é dada por:
+
+$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2}{(p1-p2)^2}$
 
 <p>
 Onde:
@@ -349,6 +355,8 @@ De acordo (J. Cohen 1988), pode-se definir o tamanho do efeito para
 comparações de proporções como:
 </p>
 
+$h={2arcsen(\\sqrt{p1})-2arcsen(\\sqrt{p2})}$
+
 -   Efeito pequeno: *h* = 0,2;
 -   Efeito médio: *h* = 0,5;
 -   Efeito grande: *h* = 0,8.
@@ -362,6 +370,8 @@ comparações de dois grupos em respostas binárias para dados dependentes.
 <p>
 Em que a quantidade total de indivíduos em cada grupo é dada por:
 </p>
+
+$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2 (1+(n-1)\\rho)}{n(p1-p2)^2}$
 
 <p>
 Onde:
@@ -434,10 +444,14 @@ A quantidade total de indivíduos em cada grupo considerando somente 2
 grupos é dada por:
 </p>
 
+$N= \\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2}{d^2}$
+
 <p>
 A quantidade total de indivíduos em cada grupo considerando mais 2
 grupos é dada por:
 </p>
+
+$N= \\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2}{d^2}$
 
 <p>
 Onde:
@@ -460,6 +474,8 @@ adequado na comparação dos grupos em amostras independentes, o tamanho
 da amostra necessário para o teste não paramétrico correspondente será,
 de acordo com (Lehmann 1975):
 </p>
+
+$N\*=\\frac{N}{0,955}$
 
 ``` r
 AmostraCompMedias2ouMaisGruposIndependentes <- function(TamanhodeEfeito,Significancia,NumeroGrupos){
@@ -505,6 +521,8 @@ respostas contínuas para amostras pareadas.
 A quantidade total de indivíduos em cada grupo é dada por:
 </p>
 
+$N=\\frac{ \\left(t\_{n-1,\\frac{\\alpha}{2}}+t\_{n-1,\\frac{\\beta}{2}}\\right)}{d^2}$
+
 <p>
 Onde:
 </p>
@@ -531,6 +549,8 @@ na comparação de dois grupos em amostras pareadas, o tamanho da amostra
 necessário para o teste não paramétrico correspondente será, de acordo
 com Lehmann (1975):
 </p>
+
+$N\*=\\frac{N}{0,955}$
 
 ``` r
 AmostraCompMedias2GruposDependentes <- function(TamanhodeEfeito,Significancia){
@@ -578,10 +598,14 @@ Para dois grupos, a quantidade total de indivíduos em cada grupo é dada
 por:
 </p>
 
+$N=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2(1+(n-1)\\rho)}{n\\left(\\frac{\\mu\_1-\\mu\_2}{\\sigma}\\right)^2}=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2 (1+(n-1)\\rho)}{nd^2}$
+
 <p>
 Para mais de dois grupos, a quantidade total de indivíduos em cada grupo
 é dada por:
 </p>
+
+$N=\\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2(1+(n-1)\\rho)}{n\\left(\\frac{\\mu\_1-\\mu\_2}{\\sigma}\\right)^2}=\\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2 (1+(n-1)\\rho)}{nd^2}$
 
 <p>
 Onde:
@@ -638,6 +662,8 @@ Para calcular o tamanho da amostra para realizar um teste de correlação
 de forma a verificar a relação linear existente foi utilizada a seguinte
 fórmula (Hulley, et al., 2013):
 <p/>
+
+$N=\\left(\\frac{z\_\\alpha+z\_\\beta}{0,5 \\log\\left(\\frac{1+r}{1-r}\\right)}\\right)^2 + 3$
 
 <p>
 Onde:
