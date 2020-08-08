@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message=FALSE)
+```
+
+# Definições
+## Poder do teste
+Os testes estatísticos procuram evidências para rejeitar a hipótese nula e concluir que existe diferença entre os grupos. No entanto, há sempre a possibilidade de encontrar uma diferença entre os grupos quando na verdade não existe. Isso é chamado de erro de tipo I. Da mesma forma, é possível existir uma diferença e o teste não ser capaz de identificá-la. Este tipo de erro é chamado de  erro do tipo II. O poder do teste é a probabilidade de encontrar uma diferença significativa quando realmente essa diferença existe. Em outras palavras,  o poder é a probabilidade de você rejeitar a hipótese nula quando realmente se deve rejeita-la. É geralmente aceito que o poder do teste seja igual ou maior que 0,8.  
+
+## Nível de significância
+O nível de significância é o que conhecemos como erro tipo I, na ciência da saude, assim como na maiorias das ciências, adota-se um $\alpha = 5\%$. 
+
+## Tamanho do efeito
+O tamanho do efeito é dado por:
+
+\begin{align}
+d=\frac{\mu_1-\mu_2}{\sigma}
+\end{align}
+
+Sendo, $\mu_1$ média do primeiro grupo, $\mu_2$ média do segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen 1988), pode-se definir como:
+
+* Efeito pequeno: $d = 0,2$;
+*	Efeito médio: $d = 0,5$;
+*	Efeito grande: $d = 0,8$.
+
+## Correlação Intraclasse
+Os indivíduos que apresentaram as piores pontuações na primeira medida tendem a apresentar as piores pontuações na segunda medida, o que evidencia uma correlação entre as medidas realizadas no mesmo indivíduo. Nesse caso, pode-se pensar na correlação restrita ao intervalo 0 e 1. Sendo que uma correlação igual à zero indicaria que não existe nenhuma relação entre as medidas no mesmo indivíduo, ao passo que uma correlação igual a um indicaria que todos os indivíduos mantiveram a mesma pontuação.
+
+# Estimação para proporção
+## Populações finitas
+Para estimação de proporções para populações finitas, (Bolfarine e Bussab 2005), a expressão para o tamanho da amostra é dada por:
+
+\begin{align}
+n=\frac{N}{\frac{(N-1)E^2}{p(1-p)z^2_\alpha}+1}
+\end{align}
+
+<p>Em que $z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância  $\alpha$, $E$ a margem de erro, $N$ o tamanho da população e $p$ alguma proporção de interesse provinda do instrumento de pesquisa.</p>
+<p>Para possibilitar o cálculo do tamanho da amostra para as diferentes variáveis com os níveis especificados de significância e margem de erro, foi utilizado um p de 50%, uma vez que o tamanho da amostra obtido sobre esta suposição é máximo, suficiente para qualquer possível resultado que venha a ocorrer (Hulley, et al. 2006).</p>
+
+```{r}
+EstPropPopFinita <- function(populacao,proporcao){
+  erro <- c(0.005,0.01,0.02,0.03,0.04,0.05,0.06,0.07)
+  N5 <- populacao/((((populacao-1)*(erro^2))/(proporcao*(1-proporcao)*(qnorm(1-(0.05/2))^2)))+1)
+  N10 <- populacao/((((populacao-1)*(erro^2))/(proporcao*(1-proporcao)*(qnorm(1-(0.10/2))^2)))+1)
+  tabela <- data.frame(erro=c("0.5%","1%","2%","3%","4%","5%","6%","7%"),
+                       tamanhoamostral5=N5, tamanhoamostral10=N10)
+  colnames(tabela) <- c("Erro", "Amostra - 5% de significância","Amostra - 10% de significância")
+  return(tabela)
+}
+```
+
+**Exemplo TD086:** Supondo $N = 231$, pode-se verificar o tamanho da amostra condicionado ao nível de significância e margem de erro.
+
+```{r}
+EstPropPopFinita(231,0.5)
+```
