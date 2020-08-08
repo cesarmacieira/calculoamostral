@@ -1,0 +1,536 @@
+---
+title: "Cálculo amostral"
+author: "César Macieira"
+output: html_document
+date: "Algum dia de agosto de 2019"
+indent: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message=FALSE)
+```
+
+# Definições
+## Poder do teste
+Os testes estatísticos procuram evidências para rejeitar a hipótese nula e concluir que existe diferença entre os grupos. No entanto, há sempre a possibilidade de encontrar uma diferença entre os grupos quando na verdade não existe. Isso é chamado de erro de tipo I. Da mesma forma, é possível existir uma diferença e o teste não ser capaz de identificá-la. Este tipo de erro é chamado de  erro do tipo II. O poder do teste é a probabilidade de encontrar uma diferença significativa quando realmente essa diferença existe. Em outras palavras,  o poder é a probabilidade de você rejeitar a hipótese nula quando realmente se deve rejeita-la. É geralmente aceito que o poder do teste seja igual ou maior que 0,8.  
+
+## Nível de significância
+O nível de significância é o que conhecemos como erro tipo I, na ciência da saude, assim como na maiorias das ciências, adota-se um $\alpha = 5\%$. 
+
+## Tamanho do efeito
+O tamanho do efeito é dado por:
+
+\begin{align}
+d=\frac{\mu_1-\mu_2}{\sigma}
+\end{align}
+
+Sendo, $\mu_1$ média do primeiro grupo, $\mu_2$ média do segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen 1988), pode-se definir como:
+
+* Efeito pequeno: $d = 0,2$;
+*	Efeito médio: $d = 0,5$;
+*	Efeito grande: $d = 0,8$.
+
+## Correlação Intraclasse
+Os indivíduos que apresentaram as piores pontuações na primeira medida tendem a apresentar as piores pontuações na segunda medida, o que evidencia uma correlação entre as medidas realizadas no mesmo indivíduo. Nesse caso, pode-se pensar na correlação restrita ao intervalo 0 e 1. Sendo que uma correlação igual à zero indicaria que não existe nenhuma relação entre as medidas no mesmo indivíduo, ao passo que uma correlação igual a um indicaria que todos os indivíduos mantiveram a mesma pontuação.
+
+# Estimação para proporção
+## Populações finitas
+Para estimação de proporções para populações finitas, (Bolfarine e Bussab 2005), a expressão para o tamanho da amostra é dada por:
+
+\begin{align}
+n=\frac{N}{\frac{(N-1)E^2}{p(1-p)z^2_\alpha}+1}
+\end{align}
+
+<p>Em que $z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância  $\alpha$, $E$ a margem de erro, $N$ o tamanho da população e $p$ alguma proporção de interesse provinda do instrumento de pesquisa.</p>
+<p>Para possibilitar o cálculo do tamanho da amostra para as diferentes variáveis com os níveis especificados de significância e margem de erro, foi utilizado um p de 50%, uma vez que o tamanho da amostra obtido sobre esta suposição é máximo, suficiente para qualquer possível resultado que venha a ocorrer (Hulley, et al. 2006).</p>
+
+```{r}
+EstPropPopFinita <- function(populacao,proporcao){
+  erro <- c(0.005,0.01,0.02,0.03,0.04,0.05,0.06,0.07)
+  N5 <- populacao/((((populacao-1)*(erro^2))/(proporcao*(1-proporcao)*(qnorm(1-(0.05/2))^2)))+1)
+  N10 <- populacao/((((populacao-1)*(erro^2))/(proporcao*(1-proporcao)*(qnorm(1-(0.10/2))^2)))+1)
+  tabela <- data.frame(erro=c("0.5%","1%","2%","3%","4%","5%","6%","7%"),
+                       tamanhoamostral5=N5, tamanhoamostral10=N10)
+  colnames(tabela) <- c("Erro", "Amostra - 5% de significância","Amostra - 10% de significância")
+  return(tabela)
+}
+```
+
+**Exemplo TD086:** Supondo $N = 231$, pode-se verificar o tamanho da amostra condicionado ao nível de significância e margem de erro.
+
+```{r}
+EstPropPopFinita(231,0.5)
+```
+
+<p>Considerando um $Erro = 5\%$, têm-se que $n=144$ (como no exemplo anterior). Isto posto, realizando $1000$ simulações é possível perceber que o intervalo com $95\%$ de confiança têm a margem de erro esperada</p>
+
+```{r}
+Amostra <- c()
+p <-rbinom(231,1,0.5)
+for (i in 1:1000){
+  Amostra[i] <- mean(sample(p,144,0))
+}
+paste0("Proporção estimada: ",round(mean(Amostra),2),"; I.C.(95%) = ","[",round(quantile(Amostra,0.025),2),";",round(quantile(Amostra,0.975),2),"]")
+```
+
+<p>Transformando a fórmula para o cálculo do tamanho amostral, é possível verificar se os erros reais correspondem aos erros estimados pela fórmula:</p>
+\begin{align}
+n=\frac{N}{\frac{(N-1)E^2}{p(1-p)z^2_\alpha}+1} \therefore E = Erro = \sqrt\frac{\frac{N}{n}-1}{\frac{(N-1)}{p(1-p)z^2_\alpha}}
+\end{align}
+
+```{r}
+N <- 231
+p = aux5 = aux10 = c()
+erro5 = erro10 = matrix(nrow=10,ncol=8)
+for(i in 1:10){
+  p[i] <- mean(rbinom(384, 1, 0.3))
+  aux5 <- sqrt(((N/EstPropPopFinita(231,0.5)[,2])-1)/((N-1)/(p[i]*(1-p[i])*(qnorm(1-(0.05/2))^2))))*100
+  aux10 <- sqrt(((N/EstPropPopFinita(231,0.5)[,3])-1)/((N-1)/(p[i]*(1-p[i])*(qnorm(1-(0.1/2))^2))))*100
+  for(j in 1:8){
+    erro5[i,j] <- aux5[j]
+    erro10[i,j] <- aux10[j]
+  }
+}
+media5 = media10 = c()
+
+for(k in 1:8){
+  media5[k] <- mean(erro5[,k])
+  media10[k] <- mean(erro10[,k])
+}
+tabela <- data.frame(erroreal=c("0.5","1","2","3","4","5","6","7"),
+                     mediaerro5=c(media5),
+                     amostra5=EstPropPopFinita(231,0.5)[,2],
+                     amostra10=EstPropPopFinita(231,0.5)[,3])
+colnames(tabela) <- c("Erro real (%)", "Erro estimado (%)","Amostra - 5% de sig","Amostra - 10% de sig")
+rownames(tabela) <- NULL
+tabela
+```
+
+## Populações infinitas
+<p>A expressão para o tamanho da amostra para estimação de proporções para populações infinitas dada por:</p>
+
+\begin{align}
+n=\frac{p(1-p)z^2_\alpha}{E^2}
+\end{align}
+
+<p>Em que $z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância  $\alpha$, p é a proporção e $E$ a margem de erro.</p>
+
+```{r}
+EstPropPopInfinita <- function(proporcao){
+  erro <- c(0.005,0.01,0.02,0.03,0.04,0.05,0.06,0.07)
+  N5 <- (proporcao*(1-proporcao)*(qnorm(1-(0.05/2))^2))/(erro^2)
+  N10 <- (proporcao*(1-proporcao)*(qnorm(1-(0.10/2))^2))/(erro^2)
+  tabela <- data.frame(erro=c("0,5%","1%","2%","3%","4%","5%","6%","7%"),
+                       tamanhoamostral5=N5, tamanhoamostral10=N10)
+  colnames(tabela) <- c("Erro", "Amostra - 5% de significância","Amostra - 10% de significância")
+  return(tabela)
+}
+```
+
+**Exemplo TC484:** Supondo $p = 10,5/1000$.
+
+```{r}
+EstPropPopInfinita(10.5/1000)
+```
+
+**Exemplo:** Supondo o maior tamanho amostral possível $(p = 0.5)$.
+
+```{r}
+EstPropPopInfinita(0.5)
+```
+
+<p>Considerando um $Erro = 5\%$, têm-se que $n=385$, pelo exemplo anterior. Isto posto, realizando $1000$ simulações é possível perceber que o intervalo com $95\%$ de confiança têm a margem de erro esperada.</p>
+
+```{r}
+Amostra <- c()
+for (i in 1:1000){
+  Amostra[i] <- mean(rbinom(231,1,0.5))
+}
+paste0("Proporção estimada: ",round(mean(Amostra),2),"; I.C.(95%) = ","[",round(quantile(Amostra,0.025),2),";",round(quantile(Amostra,0.975),2),"]")
+```
+
+<p>Transformando a fórmula para o cálculo do tamanho amostral para proporção de populações infinitas, é possível verificar se os erros reais correspondem aos erros estimados pela fórmula:</p>
+\begin{align}
+n=\frac{p(1-p)z^2_\alpha}{E^2} \therefore E = Erro = \sqrt\frac{p(1-p)z^2_\alpha}{n}
+\end{align}
+
+```{r}
+p = aux5 = aux10 = c()
+erro5 = erro10 = matrix(nrow=10,ncol=8)
+for(i in 1:10){
+  p[i] <- mean(rbinom(1000, 1, 0.0105))
+  aux5 <- (sqrt((p[i]*(1-p[i])*(qnorm(1-(0.05/2))^2))/EstPropPopInfinita(10.5/1000)[,2]))*100
+  aux10 <- (sqrt((p[i]*(1-p[i])*(qnorm(1-(0.05/2))^2))/EstPropPopInfinita(10.5/1000)[,3]))*100
+  for(j in 1:8){
+    erro5[i,j] <- aux5[j]
+    erro10[i,j] <- aux10[j]
+  }
+}
+media5 = media10 = c()
+for(k in 1:8){
+  media5[k] <- mean(erro5[,k])
+  media10[k] <- mean(erro10[,k])
+}
+tabela <- data.frame(erroreal=c("0.5","1","2","3","4","5","6","7"),
+                     mediaerro5=c(media5),
+                     amostra5=EstPropPopInfinita(10.5/1000)[,2],
+                     amostra10=EstPropPopInfinita(10.5/1000)[,3])
+colnames(tabela) <- c("Erro real (%)", "Erro estimado (%)","Amostra - 5% de sig","Amostra - 10% de sig")
+rownames(tabela) <- NULL
+tabela
+```
+
+# Comparação de proporções
+## Transversal
+Para calcular o tamanho amostral necessário para comparar duas proporções, foi utilizada a metodologia proposta por Fleiss, 1981, em que a quantidade total de indivíduos em cada grupo é dada por:
+
+\begin{align}
+N=\frac{[z_\alpha 2(\overline{pq})^\frac{1}{2} + 2z_\beta (p1q1 + p2q2)^\frac{1}{2}]^2}{(p1-p2)^2}
+\end{align}
+
+<p>Onde:</p>
+*	$p1$ é a proporção do evento no grupo 1.
+*	$p2$ é a proporção do evento no grupo 2.(Vale ressaltar que $p2$ é definido a partir do tamanho do efeito e de $p1$)
+*	$q1 = 1-p1$;
+*	$q2 = 1-p2$;
+*	$\overline{p} = \frac{(p1+p2)}{2}$;
+*	$\overline{q}$ = $1-\overline{p}$;
+*	$z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância.
+*	$z_\beta$ é o percentil da distribuição normal correspondente ao poder do teste.
+
+```{r}
+AmostraCompPropTransversal <- function (p1,TamanhodeEfeito,Significancia){
+  p2 <- 1 
+  estimativaefeito <- 0
+  while( abs(TamanhodeEfeito-estimativaefeito) > 0.0001 ){
+    estimativaefeito <- abs(2 * asin(sqrt(p1)) - 2 * asin(sqrt(p2)))
+    p2 <- p2-0.00001
+  }
+  q1 <- 1-p1
+  q2 <- 1-p2
+  pbarra <- (p1+p2)/2
+  qbarra <- 1-pbarra
+  zalfa <- qnorm(1-(Significancia/2))
+  zbeta <- qnorm(seq(0.80,0.96, 0.05))
+  numerador <- ( (zalfa * sqrt(2 * pbarra*qbarra) + zbeta * sqrt(p1*q1 + p2*q2) )^2) 
+  denominador <-  ( (p1-p2)^2 )
+  N <- numerador/denominador
+  tabela <- (data.frame(poder=c("80,00%","85,00%","90,00%","95,00%"),tamanhoamostral=N))
+  colnames(tabela) <- c("Poder", "Tamanho amostral (N)")
+  return(tabela)
+}
+```
+
+**Exemplo TM233:** Supondo tamanho do efeito médio $(d) = 0,5$, nível de significância $(\alpha) = 5\%$ e $p1 = 0,50$.
+
+```{r}
+AmostraCompPropTransversal(0.5,0.5,0.05)
+```
+
+## Longitudinal
+<p>De acordo (J. Cohen 1988), pode-se definir o tamanho do efeito para comparações de proporções como:</p>
+
+\begin{align}
+h={2arcsen(\sqrt{p1})-2arcsen(\sqrt{p2})}
+\end{align}
+
+* Efeito pequeno: $h$ = 0,2;
+*	Efeito médio: $h$ = 0,5;
+*	Efeito grande: $h$ = 0,8.
+
+<p>Para calcular o tamanho da amostra para verificar a diferença da proporção entre os grupos 1 e 2 persistentes ao longo do tempo, foi utilizada a metodologia proposta por (Diggle, et al. 2002), para comparações de dois grupos em respostas binárias para dados dependentes.</p>
+<p>Em que a quantidade total de indivíduos em cada grupo é dada por:</p>
+
+\begin{align}
+N=\frac{[z_\alpha 2(\overline{pq})^\frac{1}{2} + 2z_\beta (p1q1 + p2q2)^\frac{1}{2}]^2 (1+(n-1)\rho)}{n(p1-p2)^2}
+\end{align}
+
+<p>Onde:</p>
+*	$p1$ é a proporção do evento no grupo 1.
+*	$p2$ é a proporção do evento no grupo 2.
+*	$q1 = 1-p1$;
+*	$q2 = 1-p2$;
+*	$\overline{p} = \frac{(p1+p2)}{2}$;
+*	$\overline{q}$ = $1-\overline{p}$;
+*	$\rho$ é a correlação intraclasse.
+*	$n$ é número de medidas no mesmo indivíduo.
+*	$z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância.
+*	$z_\beta$ é o percentil da distribuição normal correspondente ao poder do teste.
+
+```{r}
+AmostraCompPropLongitudinal <- function (p1,TamanhodeEfeito,Significancia,CorrIntraclasse,MedidasRealizadas){
+  p2 <- 1 
+  estimativaefeito <- 0
+  while( abs(TamanhodeEfeito-estimativaefeito) > 0.0001 ){
+    estimativaefeito <- abs(2 * asin(sqrt(p1)) - 2 * asin(sqrt(p2)))
+    p2 <- p2-0.00001
+  }
+  q1 <- 1-p1;
+  q2 <- 1-p2;
+  pbarra <- (p1+p2)/2;
+  qbarra <- 1-pbarra
+  zalfa <- qnorm(1-(Significancia/2));zbeta <- qnorm(seq(0.80,0.96, 0.05))
+  numerador <- ( (zalfa * sqrt(2 * pbarra*qbarra) + zbeta * sqrt(p1*q1 + p2*q2) )^2) * (1+(MedidasRealizadas-1)*CorrIntraclasse)
+  denominador <- MedidasRealizadas * ( (p1-p2)^2 )
+  N <- numerador/denominador
+  tabela <- (data.frame(poder=c("80,00%","85,00%","90,00%","95,00%"),tamanhoamostral=N))
+  colnames(tabela) <- c("Poder", "Tamanho amostral (N)")
+  return(tabela)
+}
+```
+
+**Exemplo TD046:** Supondo Tamanho do efeito médio $(h) = 0,5$, Correlação Intraclasse$(\rho) = 0,5$, $p1 = 0,10$, nível de significância $(\alpha) = 5\%$ e número de medidas no mesmo indivíduo $(n) = 5$.
+
+```{r}
+AmostraCompPropLongitudinal(0.1,0.5,0.05,0.5,5)
+```
+
+# Comparação de médias
+## 2 grupos ou mais grupos - Amostras independentes
+<p>Para calcular o tamanho amostral, foi utilizada a metodologia proposta por (Fleiss 1986) para comparações de dois grupos em respostas contínuas para amostras independentes. Caso haja mais de dois grupos, o nível de significância foi corrigido, pelo método de bonferroni (Miller 1991), para realizar as comparações dois-a-dois.</p>
+<p>A quantidade total de indivíduos em cada grupo considerando somente 2 grupos é dada por:</p>
+
+\begin{align}
+N= \frac{2\left(z_{\alpha}+z_\beta\right)^2}{d^2}
+\end{align}
+
+<p>A quantidade total de indivíduos em cada grupo considerando mais 2 grupos é dada por:</p>
+
+\begin{align}
+N= \frac{2\left(z_{\frac{\alpha}{g}}+z_\beta\right)^2}{d^2}
+\end{align}
+
+<p>Onde:</p>
+* $z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância;
+* $z_\beta$  é o percentil da distribuição normal correspondente ao poder do teste;
+* $d$ é o tamanho do efeito;
+* $g$ é o número de grupos.
+
+<p>Para utilizar a metodologia acima, está se fazendo duas suposições: distribuição normal e o desvio padrão populacional entre grupos são os mesmos. Caso essas suposições sejam violadas, pode-se usar para comparar os grupos um teste não paramétrico correspondente. Dessa forma, sendo N o tamanho amostral necessário para o teste paramétrico garantir um poder adequado na comparação dos grupos em amostras independentes, o tamanho da amostra necessário para o teste não paramétrico correspondente será, de acordo com (Lehmann 1975):</p>
+
+\begin{align}
+N*=\frac{N}{0,955}
+\end{align}
+
+```{r}
+AmostraCompMedias2ouMaisGruposIndependentes <- function(TamanhodeEfeito,Significancia,NumeroGrupos){
+  if(NumeroGrupos==2){
+    zalfa <- qnorm(1-(Significancia/2))
+  }else if(NumeroGrupos>2){
+    zalfa <- qnorm(1-(Significancia/(2*NumeroGrupos)))
+  }
+  zbeta <- qnorm(seq(0.80,0.96, 0.05))
+  N <- (2*((zalfa+zbeta)^2))/(TamanhodeEfeito^2)
+  Ncorrigido <- N/0.955
+  tabela <- (data.frame(poder=c("80,00%","85,00%","90,00%","95,00%"),
+                        tamanhoamostralparametrico=N,
+                        tamanhoamostralnaoparametrico=Ncorrigido))
+  colnames(tabela) <- c("Poder", "Amostra por grupo - Paramétrico",
+                        "Amostra por grupo -  Não paramétrico")
+  return(tabela)
+}
+```
+
+**Exemplo TM375:** Supondo tamanho do efeito médio $(d) = 0,5$ e nível de significância $(\alpha) = 5\%$.
+
+```{r}
+AmostraCompMedias2ouMaisGruposIndependentes(0.5,0.05,2)
+```
+
+## 1 grupo - 2 medidas (Antes e depois) (dependentes) (T=1)
+<p>Para calcular o tamanho das amostras foi utilizada a metodologia proposta por Dupont e Plummer (1990) para comparações de dois grupos em respostas contínuas para amostras pareadas.</p> 
+<p>A quantidade total de indivíduos em cada grupo é dada por:</p>
+
+\begin{align}
+N=\frac{ \left(t_{n-1,\frac{\alpha}{2}}+t_{n-1,\frac{\beta}{2}}\right)}{d^2}
+\end{align}
+
+<p>Onde:</p>
+* $t_{n-1,\frac{\alpha}{2}}$ é o percentil da distribuição t de Student com $n-1$ graus de liberdade correspondente ao nível de significância;
+* $t_{n-1,\frac{\beta}{2}}$ é o percentil da distribuição $t$ de Student com $n-1$ graus de liberdade correspondente ao poder do teste;
+* $d$ é o tamanho do efeito.
+
+<p>A equação é então solucionada através de métodos iterativos, dado que “n” aparece em ambos os lados da equação.</p>
+<p>Para utilizar a metodologia acima duas suposições são feitas: distribuição normal e o desvio padrão populacional é o mesmo. Caso essas suposições sejam violadas, utiliza-se na comparação dos dois grupos um teste não paramétrico correspondente. Dessa forma, sendo N o tamanho amostral necessário para o teste paramétrico garantir um poder adequado na comparação de dois grupos em amostras pareadas, o tamanho da amostra necessário para o teste não paramétrico correspondente será, de acordo com Lehmann (1975):</p>
+
+\begin{align}
+N*=\frac{N}{0,955}
+\end{align}
+
+```{r}
+AmostraCompMedias2GruposDependentes <- function(TamanhodeEfeito,Significancia){
+  if(!require(pwr)){install.packages("pwr"); require(pwr)}
+  Nparametrico <- c(pwr.t.test(d=TamanhodeEfeito , sig.level = Significancia, power =0.80 , type = c("paired"))$n,
+                    pwr.t.test(d=TamanhodeEfeito , sig.level = Significancia, power =0.85 , type = c("paired"))$n,
+                    pwr.t.test(d=TamanhodeEfeito , sig.level = Significancia, power =0.90 , type = c("paired"))$n,
+                    pwr.t.test(d=TamanhodeEfeito , sig.level = Significancia, power =0.95 , type = c("paired"))$n)
+  Ncorrigido <- Nparametrico/0.955
+  tabela <- (data.frame(poder=c("80,00%","85,00%","90,00%","95,00%"),
+                        tamanhoamostralparametrico=Nparametrico,
+                        tamanhoamostralnaoparametrico=Ncorrigido))
+  colnames(tabela) <- c("Poder", "Amostra por grupo - Paramétrico",
+                        "Amostra por grupo -  Não paramétrico")
+  return(tabela)
+}
+```
+
+**Exemplo TM296:** Supondo tamanho do efeito grande $(d) = 0,8$ e nível de significância $(\alpha) = 5\%$.
+
+```{r,message=FALSE}
+AmostraCompMedias2GruposDependentes(0.8,0.05)
+```
+
+## 2 grupos ou mais - Amostras dependentes (T>=2)
+<p>Para calcular o tamanho amostral para possibilitar a comparação  entre os grupos, foi utilizada a metodologia proposta por (Diggle, et al. 2002) para comparações de dois grupos em respostas contínuas para amostras dependentes (ao longo do tempo). Supondo que existe três grupos, o nível de significância foi corrigido, pelo método de bonferroni (Miller 1991), para realizar as comparações dois-a-dois.</p>
+<p>Para dois grupos,  a quantidade total de indivíduos em cada grupo é dada por:</p>
+
+\begin{align}
+N=\frac{2\left(z_{\alpha}+z_\beta\right)^2(1+(n-1)\rho)}{n\left(\frac{\mu_1-\mu_2}{\sigma}\right)^2}=\frac{2\left(z_{\alpha}+z_\beta\right)^2 (1+(n-1)\rho)}{nd^2}
+\end{align}
+
+<p>Para mais de dois grupos, a quantidade total de indivíduos em cada grupo é dada por:</p>
+
+\begin{align}
+N=\frac{2\left(z_{\frac{\alpha}{g}}+z_\beta\right)^2(1+(n-1)\rho)}{n\left(\frac{\mu_1-\mu_2}{\sigma}\right)^2}=\frac{2\left(z_{\frac{\alpha}{g}}+z_\beta\right)^2 (1+(n-1)\rho)}{nd^2} 
+\end{align}
+
+<p>Onde:</p>
+* $z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância;
+* $z_\beta$ é o percentil da distribuição normal correspondente ao poder do teste;
+* $n$ é o número de medidas realizadas no mesmo indivíduo;
+*	$\rho$ é a correlação esperada entre as medidas do mesmo indivíduo;
+* $g$ é o número de grupos.
+* $\mu_1$ é a média populacional no grupo 1;
+* $\mu_2$ é a média populacional no grupo 2;
+* $d$ é o tamanho do efeito.
+
+```{r}
+AmostraCompMedias2ouMaisGruposDependentes <- function(TamanhodeEfeito,Correlacao,MedidasRealizadas,Significancia,NumeroGrupos){
+  if(NumeroGrupos==2){
+    zalfa <- qnorm(1-(Significancia/2))
+  }else if(NumeroGrupos>2){
+    zalfa <- qnorm(1-(Significancia/(2*NumeroGrupos)))
+  }
+  zbeta <- qnorm(seq(0.80,0.96, 0.05))
+  numerador <- (2*((zalfa+zbeta)^2)) * (1+((MedidasRealizadas-1)*Correlacao) )  
+  denominador <- (MedidasRealizadas*TamanhodeEfeito^2)
+  N <- numerador/denominador
+  tabela <- (data.frame(poder=c("80,00%","85,00%","90,00%","95,00%"),
+                        tamanhoamostral=N))
+  colnames(tabela) <- c("Poder", "Tamanho amostral por grupo")
+  return(tabela)
+}
+```
+
+**Exemplo TM183:** Supondo tamanho do efeito grande $(d) = 0,8$, correlação $(\rho) = 0,5$, medidas realizadas $(n) = 2$, grupos $(g) = 3$ e nível de significância $(\alpha) = 5\%$.
+
+```{r}
+AmostraCompMedias2ouMaisGruposDependentes(0.8,0.5,2,0.05,3)
+```
+
+# Correlação
+<p>Para calcular o tamanho da amostra para realizar um teste de correlação de forma a verificar a relação linear existente foi utilizada a seguinte fórmula (Hulley, et al., 2013):<p/>
+
+\begin{align}
+N=\left(\frac{z_\alpha+z_\beta}{0,5 \log\left(\frac{1+r}{1-r}\right)}\right)^2 + 3
+\end{align}
+
+<p>Onde:</p>
+* $z_\alpha$ é o percentil da distribuição normal correspondente ao nível de significância;
+* $z_\beta$ é o percentil da distribuição normal correspondente ao poder do teste;
+* $r$ é o tamanho do efeito.
+
+```{r}
+AmostraCorrelacao <- function (TamanhodeEfeito,Significancia){
+  if(!require(pwr)){install.packages("pwr"); require(pwr)}
+  N <- rbind(pwr.r.test(r = TamanhodeEfeito, sig.level = Significancia, power = 0.80)$n,
+             pwr.r.test(r = TamanhodeEfeito, sig.level = Significancia, power = 0.85)$n,
+             pwr.r.test(r = TamanhodeEfeito, sig.level = Significancia, power = 0.90)$n,
+             pwr.r.test(r = TamanhodeEfeito, sig.level = Significancia, power = 0.95)$n)
+  tabela <- data.frame(poder=c("80,00%","85,00%","90,00%","95,00%"),
+                        tamanhoamostralparametrico=N)
+  colnames(tabela) <- c("Poder", "Tamanho da amostra")
+  return(tabela)
+}
+```
+
+**Exemplo TM463:** Supondo tamanho de efeito $(d) = 0,3$ e nível de significância $(\alpha) = 5\%$.
+```{r,message=FALSE}
+AmostraCorrelacao(0.3,0.05)
+```
+
+# Simulações
+## Proporções
+
+```{r}
+set.seed(13)
+n <- 384
+propreal <- 0.3
+p <- sum(rbinom(n,1,propreal))/n
+
+SimulacaoProp <- function (propreal,n){
+  p <- sum(rbinom(n,1,propreal))/n
+  ic90real <- paste0("[",round(propreal-0.1,2),";",round(propreal+0.1,2),"]")
+  ic95real <- paste0("[",round(propreal-0.05,2),";",round(propreal+0.05,2),"]")
+  ic99real <- paste0("[",round(propreal-0.01,2),";",round(propreal+0.01,2),"]")
+  ic90 <- paste0("[",round(0.3-abs(qnorm(0.05))*sqrt(p*(1-p)/n),2),";",round(0.3+abs(qnorm(0.95))*sqrt(p*(1-p)/n),2),"]")
+  ic95 <- paste0("[",round(0.3-abs(qnorm(0.025))*sqrt(p*(1-p)/n),2),";",round(0.3+abs(qnorm(0.975))*sqrt(p*(1-p)/n),2),"]")
+  ic99 <- paste0("[",round(0.3-abs(qnorm(0.005))*sqrt(p*(1-p)/n),2),";",round(0.3+abs(qnorm(0.995))*sqrt(p*(1-p)/n),2),"]")
+  tabela <- data.frame(poder=c("90,00%","95,00%","99,00%"),
+                       reais=rbind(ic90real,ic95real,ic99real),
+                       intervalos=rbind(ic90,ic95,ic99))
+  colnames(tabela) <- c("Nível de confiança", "I.C. Real","I.C. Estimado")
+  rownames(tabela) <- NULL
+  return(tabela)
+}
+```
+**Exemplo:** Supondo o tamanho amostral $(n) = 384$ e proporção $(p)= 0.3$.
+```{r}
+SimulacaoProp(0.3,384)
+```
+
+## Médias
+```{r}
+set.seed(13)
+SimulacaoMedia <- function(nsim,n1,media1,dp1,n2,media2,dp2){
+  valoresp <- vector(length = nsim)
+  significancia20 = significancia15 = significancia10 = significancia5 = significancia1 = vector(length = nsim)
+  for(i in 1:nsim){
+    amostra1 <- rnorm(n1,media1,dp1)
+    amostra2 <- rnorm(n2,media2,dp2)
+    valoresp[i] <- t.test(amostra1,amostra2)$p.value
+    significancia20[i] <- ifelse(valoresp[i]<0.20,1,0)
+    significancia15[i] <- ifelse(valoresp[i]<0.15,1,0)
+    significancia10[i] <- ifelse(valoresp[i]<0.10,1,0)
+    significancia5[i] <- ifelse(valoresp[i]<0.050,1,0)
+    significancia1[i] <- ifelse(valoresp[i]<0.01,1,0)
+  }
+  poder1 <- sum(significancia20)/nsim
+  poder2 <- sum(significancia15)/nsim
+  poder3 <- sum(significancia10)/nsim
+  poder4 <- sum(significancia5)/nsim
+  poder5 <- sum(significancia1)/nsim
+  print(paste0("O tamanho de efeito é: ",abs((media1-media2)/dp1)))
+  tabela <- data.frame(significancia=c("20%","15%","10%","5%","1%"),
+                       poder=rbind(poder1*100,poder2*100,poder3*100,poder4*100,poder5*100))
+  colnames(tabela) <- c("Nível de significância", "Poder (%)")
+  rownames(tabela) <- NULL
+  return(tabela)
+}
+```
+
+**Exemplo:** Supondo número de simulações = 3000, tamanho amostral $(n1) = (n2) = 30$, média da primeira amostra $(\mu_1) = 3$, desvio padrão da primeira amostra $(\sigma^2_1) = 1$, média da segunda amostra $(\mu_2) = 4$ e desvio padrão da segunda amostra $(\sigma^2_2) = 1$.
+```{r}
+SimulacaoMedia(3000,30,3,1,30,4,1)
+```
+
+# Referências
+<p>Bolfarine, Heleno, e Wilton O. Bussab. Elementos de Amostragem. São Paulo: Blucher, 2005.</p>
+<p>Cohen, J. Statistical power analysis for the behavioral sciences (2nd ed.). Hillsdale, NJ: Lawrence Earlbaum Associates, 1988.</p>
+<p>Diggle, P.J., P.J. Heagerty, K Liang, e S.L. Zeger. Analysis of longitudinal data. Oxford Statistical Science Series, 2002.</p>
+<p>Dupont, W. D., & Plummer, W. D. Power and sample size calculations: a review and computer program. Controlled clinical trials, 11(2), 116-128, 1990.</p>
+<p>Fleiss, J. L. The design and analysis of clinical experiments. New York: J. Wiley & Sons, 1986.</p>
+<p>Hulley, SB, SR Cummings, WS Browner, D Grady, N Hearst, e TB Newman. Delineando a Pesquisa Clínica: Uma abordagem epidemiológica. Porto Alegre: Artmed, 2006.</p>
+<p>Hulley, S. B. et al. Designing clinical research. Lippincott Williams & Wilkins, 2013.</p>
+<p>Lehmann, E. L. Nonparametrics. Statistical methods based on ranks. San Francisco: Holden- Day, 1975.</p>
+<p>Miller, R. G. Jr. Simultaneous Statistical Inference. New York: Springer-Verlag, 1991.</p>
