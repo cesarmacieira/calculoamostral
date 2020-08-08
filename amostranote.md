@@ -24,7 +24,9 @@ da saude, assim como na maiorias das ciências, adota-se um *α = 5%*.
 Tamanho do efeito
 -----------------
 
-O tamanho do efeito é dado por: ![equation 1](https://latex.codecogs.com/gif.latex?d%3D%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D)
+O tamanho do efeito é dado por: 
+
+![equation 1](https://latex.codecogs.com/gif.latex?d%3D%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D)
 
 Sendo, *μ*<sub>1</sub> média do primeiro grupo, *μ*<sub>2</sub> média do
 segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen
@@ -55,7 +57,7 @@ Populações finitas
 Para estimação de proporções para populações finitas, (Bolfarine e
 Bussab 2005), a expressão para o tamanho da amostra é dada por:
 
-$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$
+![equation 2](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7BN%7D%7B%5Cfrac%7B%28N-1%29E%5E2%7D%7Bp%281-p%29z%5E2%5C_%5Calpha%7D&plus;1%7D)
 
 <p>
 Em que z<sub>α</sub> é o percentil da distribuição normal
