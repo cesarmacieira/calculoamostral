@@ -26,7 +26,7 @@ Tamanho do efeito
 
 O tamanho do efeito é dado por: 
 
-![equation 1](https://latex.codecogs.com/gif.latex?d%3D%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D)
+![](https://latex.codecogs.com/gif.latex?d%3D%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D)
 
 Sendo, *μ*<sub>1</sub> média do primeiro grupo, *μ*<sub>2</sub> média do
 segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen
@@ -57,7 +57,7 @@ Populações finitas
 Para estimação de proporções para populações finitas, (Bolfarine e
 Bussab 2005), a expressão para o tamanho da amostra é dada por:
 
-![equation 2](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7BN%7D%7B%5Cfrac%7B%28N-1%29E%5E2%7D%7Bp%281-p%29z%5E2%5C_%5Calpha%7D&plus;1%7D)
+![](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7BN%7D%7B%5Cfrac%7B%28N-1%29E%5E2%7D%7Bp%281-p%29z%5E2%5C_%5Calpha%7D&plus;1%7D)
 
 <p>
 Em que z<sub>α</sub> é o percentil da distribuição normal
@@ -125,7 +125,7 @@ verificar se os erros reais correspondem aos erros estimados pela
 fórmula:
 </p>
 
-![equation 3](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7BN%7D%7B%5Cfrac%7B%28N-1%29E%5E2%7D%7Bp%281-p%29z%5E2_%5Calpha%7D&plus;1%7D%20%5Ctherefore%20E%20%3D%20Erro%20%3D%20%5Csqrt%5Cfrac%7B%5Cfrac%7BN%7D%7Bn%7D-1%7D%7B%5Cfrac%7B%28N-1%29%7D%7Bp%281-p%29z%5E2_%5Calpha%7D%7D)
+![](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7BN%7D%7B%5Cfrac%7B%28N-1%29E%5E2%7D%7Bp%281-p%29z%5E2_%5Calpha%7D&plus;1%7D%20%5Ctherefore%20E%20%3D%20Erro%20%3D%20%5Csqrt%5Cfrac%7B%5Cfrac%7BN%7D%7Bn%7D-1%7D%7B%5Cfrac%7B%28N-1%29%7D%7Bp%281-p%29z%5E2_%5Calpha%7D%7D)
 
 ``` r
 N <- 231
@@ -173,11 +173,11 @@ A expressão para o tamanho da amostra para estimação de proporções para
 populações infinitas dada por:
 </p>
 
-*$n=\\frac{p(1-p)z^2\_\\alpha}{E^2}$*
+![](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7Bp%281-p%29z%5E2_%5Calpha%7D%7BE%5E2%7D)
 
 <p>
-Em que *z<sub>α</sub>* é o percentil da distribuição normal
-correspondente ao nível de significância *α*, *p* é a proporção e *E* a
+Em que z<sub>α</sub> é o percentil da distribuição normal
+correspondente ao nível de significância α, *p* é a proporção e *E* a
 margem de erro.
 </p>
 
@@ -247,7 +247,7 @@ proporção de populações infinitas, é possível verificar se os erros
 reais correspondem aos erros estimados pela fórmula:
 </p>
 
-*$n=\\frac{p(1-p)z^2\_\\alpha}{E^2} \\therefore E = Erro = \\sqrt\\frac{p(1-p)z^2\_\\alpha}{n}$*
+![](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7Bp%281-p%29z%5E2_%5Calpha%7D%7BE%5E2%7D%20%5Ctherefore%20E%20%3D%20Erro%20%3D%20%5Csqrt%5Cfrac%7Bp%281-p%29z%5E2_%5Calpha%7D%7Bn%7D)
 
 ``` r
 p = aux5 = aux10 = c()
@@ -295,7 +295,7 @@ Para calcular o tamanho amostral necessário para comparar duas
 proporções, foi utilizada a metodologia proposta por Fleiss, 1981, em
 que a quantidade total de indivíduos em cada grupo é dada por:
 
-*$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2}{(p1-p2)^2}$*
+![](https://latex.codecogs.com/gif.latex?N%3D%5Cfrac%7B%5C%5Bz_%5Calpha%202%28%5Coverline%7Bpq%7D%29%5E%5Cfrac%7B1%7D%7B2%7D%20&plus;%202z_%5Cbeta%20%28p1q1%20&plus;%20p2q2%29%5E%5Cfrac%7B1%7D%7B2%7D%5C%5D%5E2%7D%7B%28p1-p2%29%5E2%7D)
 
 <p>
 Onde:
@@ -306,11 +306,11 @@ Onde:
     definido a partir do tamanho do efeito e de *p1*)
 -   *q1 = 1 − p1*;
 -   *q2 = 1 − p2*;
--   $\\overline{p} = \\frac{(p1+p2)}{2}$;
--   $\\overline{q}$ = $1-\\overline{p}$;
+-   *\overline{p} = \\frac{(p1+p2)}{2}*;
+-   *\overline{q} = $1-\\overline{p}*;
 -   *z<sub>α</sub>* é o percentil da distribuição normal
     correspondente ao nível de significância.
--   *z*<sub>β</sub>* é o percentil da distribuição normal
+-   *z<sub>β</sub>* é o percentil da distribuição normal
     correspondente ao poder do teste.
 
 ``` r
@@ -357,7 +357,7 @@ De acordo (J. Cohen 1988), pode-se definir o tamanho do efeito para
 comparações de proporções como:
 </p>
 
-*$h={2arcsen(\\sqrt{p1})-2arcsen(\\sqrt{p2})}$*
+![](https://latex.codecogs.com/gif.latex?h%3D%7B2arcsen%28%5Csqrt%7Bp1%7D%29-2arcsen%28%5Csqrt%7Bp2%7D%29%7D)
 
 -   Efeito pequeno: *h = 0,2*;
 -   Efeito médio: *h = 0,5*;
@@ -373,7 +373,7 @@ comparações de dois grupos em respostas binárias para dados dependentes.
 Em que a quantidade total de indivíduos em cada grupo é dada por:
 </p>
 
-*$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2 (1+(n-1)\\rho)}{n(p1-p2)^2}$*
+![](https://latex.codecogs.com/gif.latex?N%3D%5Cfrac%7B%5C%5Bz_%5Calpha%202%28%5Coverline%7Bpq%7D%29%5E%5Cfrac%7B1%7D%7B2%7D%20&plus;%202z_%5Cbeta%20%28p1q1%20&plus;%20p2q2%29%5E%5Cfrac%7B1%7D%7B2%7D%5C%5D%5E2%20%281&plus;%28n-1%29%5Crho%29%7D%7Bn%28p1-p2%29%5E2%7D)
 
 <p>
 Onde:
@@ -383,9 +383,9 @@ Onde:
 -   *p2* é a proporção do evento no grupo 2.
 -   *q1 = 1 − p1*;
 -   *q2 = 1 − p2*;
--   $\\overline{p} = \\frac{(p1+p2)}{2}$;
--   $\\overline{q}$ = $1-\\overline{p}$;
--   *ρ* é a correlação intraclasse.
+-   *\overline{p} = \frac{(p1+p2)}{2}*;
+-   *\overline{q}$ = 1-\overline{p}*;
+-   ρ é a correlação intraclasse.
 -   *n* é número de medidas no mesmo indivíduo.
 -   *z<sub>α</sub>* é o percentil da distribuição normal
     correspondente ao nível de significância.
@@ -415,7 +415,7 @@ AmostraCompPropLongitudinal <- function (p1,TamanhodeEfeito,Significancia,CorrIn
 ```
 
 **Exemplo:** Supondo Tamanho do efeito médio *(h) = 0,5*, Correlação
-Intraclasse*(ρ) = 0,5*, *p1 = 0,10*, nível de significância *(α) = 5%*
+Intraclasse *(ρ) = 0,5*, *p1 = 0,10*, nível de significância *(α) = 5%*
 e número de medidas no mesmo indivíduo *(n) = 5*.
 
 ``` r
@@ -446,14 +446,14 @@ A quantidade total de indivíduos em cada grupo considerando somente 2
 grupos é dada por:
 </p>
 
-*$N= \\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2}{d^2}$*
+![](https://latex.codecogs.com/gif.latex?N%3D%20%5Cfrac%7B2%5Cleft%28z_%7B%5Calpha%7D&plus;z_%5Cbeta%5Cright%29%5E2%7D%7Bd%5E2%7D)
 
 <p>
 A quantidade total de indivíduos em cada grupo considerando mais 2
 grupos é dada por:
 </p>
 
-*$N= \\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2}{d^2}$*
+![](https://latex.codecogs.com/gif.latex?N%3D%20%5Cfrac%7B2%5Cleft%28z_%7B%5Cfrac%7B%5Calpha%7D%7Bg%7D%7D&plus;z_%5Cbeta%5Cright%29%5E2%7D%7Bd%5E2%7D)
 
 <p>
 Onde:
@@ -477,7 +477,7 @@ da amostra necessário para o teste não paramétrico correspondente será,
 de acordo com (Lehmann 1975):
 </p>
 
-*$N\*=\\frac{N}{0,955}$*
+![](https://latex.codecogs.com/gif.latex?N%5E*%3D%5Cfrac%7BN%7D%7B0%2C955%7D)
 
 ``` r
 AmostraCompMedias2ouMaisGruposIndependentes <- function(TamanhodeEfeito,Significancia,NumeroGrupos){
@@ -523,7 +523,7 @@ respostas contínuas para amostras pareadas.
 A quantidade total de indivíduos em cada grupo é dada por:
 </p>
 
-*$N=\\frac{ \\left(t\_{n-1,\\frac{\\alpha}{2}}+t\_{n-1,\\frac{\\beta}{2}}\\right)}{d^2}$*
+![](https://latex.codecogs.com/gif.latex?N%3D%5Cfrac%7B%5Cleft%28t_%7Bn-1%2C%5Cfrac%7B%5Calpha%7D%7B2%7D%7D&plus;t_%7Bn-1%2C%5Cfrac%7B%5Cbeta%7D%7B2%7D%7D%5Cright%29%7D%7Bd%5E2%7D)
 
 <p>
 Onde:
@@ -552,7 +552,7 @@ necessário para o teste não paramétrico correspondente será, de acordo
 com Lehmann (1975):
 </p>
 
-*$N\*=\\frac{N}{0,955}$*
+![](https://latex.codecogs.com/gif.latex?N%5E*%3D%5Cfrac%7BN%7D%7B0%2C955%7D)
 
 ``` r
 AmostraCompMedias2GruposDependentes <- function(TamanhodeEfeito,Significancia){
@@ -600,28 +600,26 @@ Para dois grupos, a quantidade total de indivíduos em cada grupo é dada
 por:
 </p>
 
-*$N=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2(1+(n-1)\\rho)}{n\\left(\\frac{\\mu\_1-\\mu\_2}{\\sigma}\\right)^2}=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2 (1+(n-1)\\rho)}{nd^2}$*
+![](https://latex.codecogs.com/gif.latex?N%3D%5Cfrac%7B2%5Cleft%28z_%7B%5Calpha%7D&plus;z_%5Cbeta%5Cright%29%5E2%281&plus;%28n-1%29%5Crho%29%7D%7Bn%5Cleft%28%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D%5Cright%29%5E2%7D%3D%5Cfrac%7B2%5Cleft%28z_%7B%5Calpha%7D&plus;z_%5Cbeta%5Cright%29%5E2%20%281&plus;%28n-1%29%5Crho%29%7D%7Bnd%5E2%7D)
 
 <p>
 Para mais de dois grupos, a quantidade total de indivíduos em cada grupo
 é dada por:
 </p>
-
-$N=\\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2(1+(n-1)\\rho)}{n\\left(\\frac{\\mu\_1-\\mu\_2}{\\sigma}\\right)^2}=\\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2 (1+(n-1)\\rho)}{nd^2}$
-
+![](https://latex.codecogs.com/gif.latex?N%3D%5Cfrac%7B2%5Cleft%28z_%7B%5Cfrac%7B%5Calpha%7D%7Bg%7D%7D&plus;z_%5Cbeta%5Cright%29%5E2%281&plus;%28n-1%29%5Crho%29%7D%7Bn%5Cleft%28%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D%5Cright%29%5E2%7D%3D%5Cfrac%7B2%5Cleft%28z_%7B%5Cfrac%7B%5Calpha%7D%7Bg%7D%7D&plus;z_%5Cbeta%5Cright%29%5E2%20%281&plus;%28n-1%29%5Crho%29%7D%7Bnd%5E2%7D)
 <p>
 Onde:
 </p>
 
--   *z*<sub>*α*</sub> é o percentil da distribuição normal
+-   z<sub>α</sub> é o percentil da distribuição normal
     correspondente ao nível de significância;
--   *z*<sub>*β*</sub> é o percentil da distribuição normal
+-   z<sub>β</sub> é o percentil da distribuição normal
     correspondente ao poder do teste;
 -   *n* é o número de medidas realizadas no mesmo indivíduo;
 -   *ρ* é a correlação esperada entre as medidas do mesmo indivíduo;
 -   *g* é o número de grupos.
--   *μ*<sub>1</sub> é a média populacional no grupo 1;
--   *μ*<sub>2</sub> é a média populacional no grupo 2;
+-   μ<sub>1</sub> é a média populacional no grupo 1;
+-   μ<sub>2</sub> é a média populacional no grupo 2;
 -   *d* é o tamanho do efeito.
 
 ``` r
@@ -642,9 +640,9 @@ AmostraCompMedias2ouMaisGruposDependentes <- function(TamanhodeEfeito,Correlacao
 }
 ```
 
-**Exemplo:** Supondo tamanho do efeito grande (*d*) = 0, 8, correlação
-(*ρ*) = 0, 5, medidas realizadas (*n*) = 2, grupos (*g*) = 3 e nível de
-significância (*α*) = 5%.
+**Exemplo:** Supondo tamanho do efeito grande *(d) = 0,8*, correlação
+*(ρ) = 0,5*, medidas realizadas *(n) = 2*, grupos *(g) = 3* e nível de
+significância *(α) = 5%*.
 
 ``` r
 AmostraCompMedias2ouMaisGruposDependentes(0.8,0.5,2,0.05,3)
@@ -665,15 +663,15 @@ de forma a verificar a relação linear existente foi utilizada a seguinte
 fórmula (Hulley, et al., 2013):
 <p/>
 
-$N=\\left(\\frac{z\_\\alpha+z\_\\beta}{0,5 \\log\\left(\\frac{1+r}{1-r}\\right)}\\right)^2 + 3$
+![](https://latex.codecogs.com/gif.latex?N%3D%5Cleft%28%5Cfrac%7Bz_%5Calpha&plus;z_%5Cbeta%7D%7B0%2C5%20%5Clog%5Cleft%28%5Cfrac%7B1&plus;r%7D%7B1-r%7D%5Cright%29%7D%5Cright%29%5E2%20&plus;%203)
 
 <p>
 Onde:
 </p>
 
--   *z*<sub>*α*</sub> é o percentil da distribuição normal
+-   z<sub>α</sub> é o percentil da distribuição normal
     correspondente ao nível de significância;
--   *z*<sub>*β*</sub> é o percentil da distribuição normal
+-   z<sub>β</sub> é o percentil da distribuição normal
     correspondente ao poder do teste;
 -   *r* é o tamanho do efeito.
 
@@ -691,8 +689,8 @@ AmostraCorrelacao <- function (TamanhodeEfeito,Significancia){
 }
 ```
 
-**Exemplo:** Supondo tamanho de efeito (*d*) = 0, 3 e nível de
-significância (*α*) = 5%.
+**Exemplo:** Supondo tamanho de efeito *(d) = 0,3* e nível de
+significância *(α) = 5%*.
 
 ``` r
 AmostraCorrelacao(0.3,0.05)
@@ -733,8 +731,8 @@ SimulacaoProp <- function (propreal,n){
 }
 ```
 
-**Exemplo:** Supondo o tamanho amostral (*n*) = 384 e proporção
-(*p*) = 0.3.
+**Exemplo:** Supondo o tamanho amostral *(n) = 3848 e proporção
+*(p) = 0.3*.
 
 ``` r
 SimulacaoProp(0.3,384)
@@ -777,11 +775,11 @@ SimulacaoMedia <- function(nsim,n1,media1,dp1,n2,media2,dp2){
 }
 ```
 
-**Exemplo:** Supondo número de simulações = 3000, tamanho amostral
-(*n*1) = (*n*2) = 30, média da primeira amostra (*μ*<sub>1</sub>) = 3,
-desvio padrão da primeira amostra (*σ*<sub>1</sub><sup>2</sup>) = 1,
-média da segunda amostra (*μ*<sub>2</sub>) = 4 e desvio padrão da
-segunda amostra (*σ*<sub>2</sub><sup>2</sup>) = 1.
+**Exemplo:** Supondo número de simulações = *3000*, tamanho amostral
+*(n1) = (n2) = 30*, média da primeira amostra *(μ<sub>1</sub>) = 3*,
+desvio padrão da primeira amostra (σ<sub>1</sub><sup>2</sup>) = 1,
+média da segunda amostra *(μ<sub>2</sub>) = 4* e desvio padrão da
+segunda amostra *(σ<sub>2</sub><sup>2</sup>) = 1*.
 
 ``` r
 SimulacaoMedia(3000,30,3,1,30,4,1)
