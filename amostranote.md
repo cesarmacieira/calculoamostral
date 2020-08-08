@@ -24,7 +24,7 @@ da saude, assim como na maiorias das ciências, adota-se um *α = 5%*.
 Tamanho do efeito
 -----------------
 
-O tamanho do efeito é dado por: *d=\\frac{\\mu\_1-\\mu\_2}{\\sigma}*
+O tamanho do efeito é dado por: ![equation 1](https://latex.codecogs.com/gif.latex?d%3D%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D)
 
 Sendo, *μ*<sub>1</sub> média do primeiro grupo, *μ*<sub>2</sub> média do
 segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen
@@ -59,7 +59,7 @@ $n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$
 
 <p>
 Em que z<sub>α</sub> é o percentil da distribuição normal
-correspondente ao nível de significância α, E a margem de erro, N
+correspondente ao nível de significância α, E a margem de erro, \N
 o tamanho da população e *p* alguma proporção de interesse provinda do
 instrumento de pesquisa.
 </p>
