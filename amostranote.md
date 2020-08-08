@@ -61,8 +61,8 @@ Bussab 2005), a expressão para o tamanho da amostra é dada por:
 
 <p>
 Em que z<sub>α</sub> é o percentil da distribuição normal
-correspondente ao nível de significância α, E a margem de erro, \N
-o tamanho da população e *p* alguma proporção de interesse provinda do
+correspondente ao nível de significância α, E a margem de erro, N
+o tamanho da população e p alguma proporção de interesse provinda do
 instrumento de pesquisa.
 </p>
 <p>
@@ -125,7 +125,7 @@ verificar se os erros reais correspondem aos erros estimados pela
 fórmula:
 </p>
 
-*$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1} \\therefore E = Erro = \\sqrt\\frac{\\frac{N}{n}-1}{\\frac{(N-1)}{p(1-p)z^2\_\\alpha}}$*
+![equation 3](https://latex.codecogs.com/gif.latex?n%3D%5Cfrac%7BN%7D%7B%5Cfrac%7B%28N-1%29E%5E2%7D%7Bp%281-p%29z%5E2_%5Calpha%7D&plus;1%7D%20%5Ctherefore%20E%20%3D%20Erro%20%3D%20%5Csqrt%5Cfrac%7B%5Cfrac%7BN%7D%7Bn%7D-1%7D%7B%5Cfrac%7B%28N-1%29%7D%7Bp%281-p%29z%5E2_%5Calpha%7D%7D)
 
 ``` r
 N <- 231
