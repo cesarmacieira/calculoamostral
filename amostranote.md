@@ -58,8 +58,8 @@ Bussab 2005), a expressão para o tamanho da amostra é dada por:
 $n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$
 
 <p>
-Em que *z<sub>α</sub>* é o percentil da distribuição normal
-correspondente ao nível de significância *α*, *E* a margem de erro, *N*
+Em que z<sub>α</sub> é o percentil da distribuição normal
+correspondente ao nível de significância α, E a margem de erro, N
 o tamanho da população e *p* alguma proporção de interesse provinda do
 instrumento de pesquisa.
 </p>
