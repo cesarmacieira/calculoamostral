@@ -600,7 +600,7 @@ Para dois grupos, a quantidade total de indivíduos em cada grupo é dada
 por:
 </p>
 
-![](https://latex.codecogs.com/gif.latex?N%3D%5Cfrac%7B2%5Cleft%28z_%7B%5Calpha%7D&plus;z_%5Cbeta%5Cright%29%5E2%281&plus;%28n-1%29%5Crho%29%7D%7Bn%5Cleft%28%5Cfrac%7B%5Cmu_1-%5Cmu_2%7D%7B%5Csigma%7D%5Cright%29%5E2%7D%3D%5Cfrac%7B2%5Cleft%28z_%7B%5Calpha%7D&plus;z_%5Cbeta%5Cright%29%5E2%20%281&plus;%28n-1%29%5Crho%29%7D%7Bnd%5E2%7D)
+N=\frac{2\left(z_{\alpha}+z_\beta\right)^2(1+(n-1)\rho)}{n\left(\frac{\mu_1-\mu_2}{\sigma}\right)^2}=\frac{2\left(z_{\alpha}+z_\beta\right)^2 (1+(n-1)\rho)}{nd^2}
 
 <p>
 Para mais de dois grupos, a quantidade total de indivíduos em cada grupo
