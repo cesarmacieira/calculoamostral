@@ -83,7 +83,7 @@ EstPropPopFinita <- function(populacao,proporcao){
 }
 ```
 
-**Exemplo:** Supondo *N* = 231, pode-se verificar o tamanho da amostra
+**Exemplo:** Supondo *N = 231*, pode-se verificar o tamanho da amostra
 condicionado ao nível de significância e margem de erro.
 
 ``` r
@@ -101,7 +101,7 @@ EstPropPopFinita(231,0.5)
     ## 8   7%                      106.2796                       86.63988
 
 <p>
-Considerando um *E**r**r**o* = 5%, têm-se que *n* = 144 (como no exemplo
+Considerando um *Erro = 5%*, têm-se que *n = 144* (como no exemplo
 anterior). Isto posto, realizando 1000 simulações é possível perceber
 que o intervalo com 95% de confiança têm a margem de erro esperada
 </p>
