@@ -26,6 +26,8 @@ Tamanho do efeito
 
 O tamanho do efeito é dado por:
 
+$d=\\frac{\\mu\_1-\\mu\_2}{\\sigma}$
+
 Sendo, *μ*<sub>1</sub> média do primeiro grupo, *μ*<sub>2</sub> média do
 segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen
 1988), pode-se definir como:
