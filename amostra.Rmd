@@ -56,7 +56,7 @@ EstPropPopFinita <- function(populacao,proporcao){
 }
 ```
 
-**Exemplo TD086:** Supondo $N = 231$, pode-se verificar o tamanho da amostra condicionado ao nível de significância e margem de erro.
+**Exemplo:** Supondo $N = 231$, pode-se verificar o tamanho da amostra condicionado ao nível de significância e margem de erro.
 
 ```{r}
 EstPropPopFinita(231,0.5)
@@ -127,7 +127,7 @@ EstPropPopInfinita <- function(proporcao){
 }
 ```
 
-**Exemplo TC484:** Supondo $p = 10,5/1000$.
+**Exemplo:** Supondo $p = 10,5/1000$.
 
 ```{r}
 EstPropPopInfinita(10.5/1000)
@@ -221,7 +221,7 @@ AmostraCompPropTransversal <- function (p1,TamanhodeEfeito,Significancia){
 }
 ```
 
-**Exemplo TM233:** Supondo tamanho do efeito médio $(d) = 0,5$, nível de significância $(\alpha) = 5\%$ e $p1 = 0,50$.
+**Exemplo:** Supondo tamanho do efeito médio $(d) = 0,5$, nível de significância $(\alpha) = 5\%$ e $p1 = 0,50$.
 
 ```{r}
 AmostraCompPropTransversal(0.5,0.5,0.05)
@@ -279,7 +279,7 @@ AmostraCompPropLongitudinal <- function (p1,TamanhodeEfeito,Significancia,CorrIn
 }
 ```
 
-**Exemplo TD046:** Supondo Tamanho do efeito médio $(h) = 0,5$, Correlação Intraclasse$(\rho) = 0,5$, $p1 = 0,10$, nível de significância $(\alpha) = 5\%$ e número de medidas no mesmo indivíduo $(n) = 5$.
+**Exemplo:** Supondo Tamanho do efeito médio $(h) = 0,5$, Correlação Intraclasse$(\rho) = 0,5$, $p1 = 0,10$, nível de significância $(\alpha) = 5\%$ e número de medidas no mesmo indivíduo $(n) = 5$.
 
 ```{r}
 AmostraCompPropLongitudinal(0.1,0.5,0.05,0.5,5)
@@ -331,7 +331,7 @@ AmostraCompMedias2ouMaisGruposIndependentes <- function(TamanhodeEfeito,Signific
 }
 ```
 
-**Exemplo TM375:** Supondo tamanho do efeito médio $(d) = 0,5$ e nível de significância $(\alpha) = 5\%$.
+**Exemplo:** Supondo tamanho do efeito médio $(d) = 0,5$ e nível de significância $(\alpha) = 5\%$.
 
 ```{r}
 AmostraCompMedias2ouMaisGruposIndependentes(0.5,0.05,2)
@@ -374,7 +374,7 @@ AmostraCompMedias2GruposDependentes <- function(TamanhodeEfeito,Significancia){
 }
 ```
 
-**Exemplo TM296:** Supondo tamanho do efeito grande $(d) = 0,8$ e nível de significância $(\alpha) = 5\%$.
+**Exemplo:** Supondo tamanho do efeito grande $(d) = 0,8$ e nível de significância $(\alpha) = 5\%$.
 
 ```{r,message=FALSE}
 AmostraCompMedias2GruposDependentes(0.8,0.05)
@@ -422,7 +422,7 @@ AmostraCompMedias2ouMaisGruposDependentes <- function(TamanhodeEfeito,Correlacao
 }
 ```
 
-**Exemplo TM183:** Supondo tamanho do efeito grande $(d) = 0,8$, correlação $(\rho) = 0,5$, medidas realizadas $(n) = 2$, grupos $(g) = 3$ e nível de significância $(\alpha) = 5\%$.
+**Exemplo:** Supondo tamanho do efeito grande $(d) = 0,8$, correlação $(\rho) = 0,5$, medidas realizadas $(n) = 2$, grupos $(g) = 3$ e nível de significância $(\alpha) = 5\%$.
 
 ```{r}
 AmostraCompMedias2ouMaisGruposDependentes(0.8,0.5,2,0.05,3)
@@ -454,7 +454,7 @@ AmostraCorrelacao <- function (TamanhodeEfeito,Significancia){
 }
 ```
 
-**Exemplo TM463:** Supondo tamanho de efeito $(d) = 0,3$ e nível de significância $(\alpha) = 5\%$.
+**Exemplo:** Supondo tamanho de efeito $(d) = 0,3$ e nível de significância $(\alpha) = 5\%$.
 ```{r,message=FALSE}
 AmostraCorrelacao(0.3,0.05)
 ```
