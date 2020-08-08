@@ -57,11 +57,13 @@ Populações finitas
 Para estimação de proporções para populações finitas, (Bolfarine e
 Bussab 2005), a expressão para o tamanho da amostra é dada por:
 
+$$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$$
+
 <p>
-Em que *z*<sub>*α*</sub> é o percentil da distribuição normal
-correspondente ao nível de significância *α*, *E* a margem de erro, *N*
-o tamanho da população e *p* alguma proporção de interesse provinda do
-instrumento de pesquisa.
+Em que *z* \< *s**u**b* \> *a**l**p**h**a* \< *s**u**b*\> é o percentil
+da distribuição normal correspondente ao nível de significância *α*, *E*
+a margem de erro, *N* o tamanho da população e *p* alguma proporção de
+interesse provinda do instrumento de pesquisa.
 </p>
 <p>
 Para possibilitar o cálculo do tamanho da amostra para as diferentes
@@ -115,7 +117,7 @@ for (i in 1:1000){
 paste0("Proporção estimada: ",round(mean(Amostra),2),"; I.C.(95%) = ","[",round(quantile(Amostra,0.025),2),";",round(quantile(Amostra,0.975),2),"]")
 ```
 
-    ## [1] "Proporção estimada: 0.5; I.C.(95%) = [0.45;0.55]"
+    ## [1] "Proporção estimada: 0.47; I.C.(95%) = [0.42;0.51]"
 
 <p>
 Transformando a fórmula para o cálculo do tamanho amostral, é possível
@@ -152,14 +154,14 @@ tabela
 ```
 
     ##   Erro real (%) Erro estimado (%) Amostra - 5% de sig Amostra - 10% de sig
-    ## 1           0.5         0.4584075            229.6252            229.05281
-    ## 2             1         0.9168149            225.5971            223.40334
-    ## 3             2         1.8336299            210.8055            203.34202
-    ## 4             3         2.7504448            190.0385            176.87077
-    ## 5             4         3.6672598            167.0055            149.60480
-    ## 6             5         4.5840747            144.4896            124.85768
-    ## 7             6         5.5008897            124.0487            103.85975
-    ## 8             7         6.4177046            106.2796             86.63988
+    ## 1           0.5         0.4572215            229.6252            229.05281
+    ## 2             1         0.9144430            225.5971            223.40334
+    ## 3             2         1.8288861            210.8055            203.34202
+    ## 4             3         2.7433291            190.0385            176.87077
+    ## 5             4         3.6577722            167.0055            149.60480
+    ## 6             5         4.5722152            144.4896            124.85768
+    ## 7             6         5.4866583            124.0487            103.85975
+    ## 8             7         6.4011013            106.2796             86.63988
 
 Populações infinitas
 --------------------
@@ -233,7 +235,7 @@ for (i in 1:1000){
 paste0("Proporção estimada: ",round(mean(Amostra),2),"; I.C.(95%) = ","[",round(quantile(Amostra,0.025),2),";",round(quantile(Amostra,0.975),2),"]")
 ```
 
-    ## [1] "Proporção estimada: 0.5; I.C.(95%) = [0.43;0.57]"
+    ## [1] "Proporção estimada: 0.5; I.C.(95%) = [0.43;0.56]"
 
 <p>
 Transformando a fórmula para o cálculo do tamanho amostral para
@@ -268,14 +270,14 @@ tabela
 ```
 
     ##   Erro real (%) Erro estimado (%) Amostra - 5% de sig Amostra - 10% de sig
-    ## 1           0.5          0.488278         1596.471871          1124.396804
-    ## 2             1          0.976556          399.117968           281.099201
-    ## 3             2          1.953112           99.779492            70.274800
-    ## 4             3          2.929668           44.346441            31.233245
-    ## 5             4          3.906224           24.944873            17.568700
-    ## 6             5          4.882780           15.964719            11.243968
-    ## 7             6          5.859336           11.086610             7.808311
-    ## 8             7          6.835892            8.145265             5.736718
+    ## 1           0.5          0.466752         1596.471871          1124.396804
+    ## 2             1          0.933504          399.117968           281.099201
+    ## 3             2          1.867008           99.779492            70.274800
+    ## 4             3          2.800512           44.346441            31.233245
+    ## 5             4          3.734016           24.944873            17.568700
+    ## 6             5          4.667520           15.964719            11.243968
+    ## 7             6          5.601024           11.086610             7.808311
+    ## 8             7          6.534528            8.145265             5.736718
 
 Comparação de proporções
 ========================
