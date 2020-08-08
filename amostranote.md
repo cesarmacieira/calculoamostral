@@ -13,26 +13,26 @@ Este tipo de erro é chamado de erro do tipo II. O poder do teste é a
 probabilidade de encontrar uma diferença significativa quando realmente
 essa diferença existe. Em outras palavras, o poder é a probabilidade de
 você rejeitar a hipótese nula quando realmente se deve rejeita-la. É
-geralmente aceito que o poder do teste seja igual ou maior que 0,8.
+geralmente aceito que o poder do teste seja igual ou maior que *0,8*.
 
 Nível de significância
 ----------------------
 
 O nível de significância é o que conhecemos como erro tipo I, na ciência
-da saude, assim como na maiorias das ciências, adota-se um *α* = 5%.
+da saude, assim como na maiorias das ciências, adota-se um *α = 5%*.
 
 Tamanho do efeito
 -----------------
 
-O tamanho do efeito é dado por: $d=\\frac{\\mu\_1-\\mu\_2}{\\sigma}$
+O tamanho do efeito é dado por: *d=\\frac{\\mu\_1-\\mu\_2}{\\sigma}*
 
 Sendo, *μ*<sub>1</sub> média do primeiro grupo, *μ*<sub>2</sub> média do
 segundo grupo e σ desvio padrão comum entre os grupos. Segundo (J. Cohen
 1988), pode-se definir como:
 
--   Efeito pequeno: *d* = 0, 2;
--   Efeito médio: *d* = 0, 5;
--   Efeito grande: *d* = 0, 8.
+-   Efeito pequeno: *d = 0, 2*;
+-   Efeito médio: *d = 0, 5*;
+-   Efeito grande: *d = 0, 8*.
 
 Correlação Intraclasse
 ----------------------
@@ -58,7 +58,7 @@ Bussab 2005), a expressão para o tamanho da amostra é dada por:
 $n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1}$
 
 <p>
-Em que *z*<sub>*α*</sub> é o percentil da distribuição normal
+Em que *z<sub>α</sub>* é o percentil da distribuição normal
 correspondente ao nível de significância *α*, *E* a margem de erro, *N*
 o tamanho da população e *p* alguma proporção de interesse provinda do
 instrumento de pesquisa.
@@ -66,7 +66,7 @@ instrumento de pesquisa.
 <p>
 Para possibilitar o cálculo do tamanho da amostra para as diferentes
 variáveis com os níveis especificados de significância e margem de erro,
-foi utilizado um p de 50%, uma vez que o tamanho da amostra obtido sobre
+foi utilizado um *p* de *50%*, uma vez que o tamanho da amostra obtido sobre
 esta suposição é máximo, suficiente para qualquer possível resultado que
 venha a ocorrer (Hulley, et al. 2006).
 </p>
@@ -103,7 +103,7 @@ EstPropPopFinita(231,0.5)
 <p>
 Considerando um *Erro = 5%*, têm-se que *n = 144* (como no exemplo
 anterior). Isto posto, realizando 1000 simulações é possível perceber
-que o intervalo com 95% de confiança têm a margem de erro esperada
+que o intervalo com *95%* de confiança têm a margem de erro esperada
 </p>
 
 ``` r
@@ -123,7 +123,7 @@ verificar se os erros reais correspondem aos erros estimados pela
 fórmula:
 </p>
 
-$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1} \\therefore E = Erro = \\sqrt\\frac{\\frac{N}{n}-1}{\\frac{(N-1)}{p(1-p)z^2\_\\alpha}}$
+*$n=\\frac{N}{\\frac{(N-1)E^2}{p(1-p)z^2\_\\alpha}+1} \\therefore E = Erro = \\sqrt\\frac{\\frac{N}{n}-1}{\\frac{(N-1)}{p(1-p)z^2\_\\alpha}}$*
 
 ``` r
 N <- 231
@@ -171,11 +171,11 @@ A expressão para o tamanho da amostra para estimação de proporções para
 populações infinitas dada por:
 </p>
 
-$n=\\frac{p(1-p)z^2\_\\alpha}{E^2}$
+*$n=\\frac{p(1-p)z^2\_\\alpha}{E^2}$*
 
 <p>
-Em que *z*<sub>*α*</sub> é o percentil da distribuição normal
-correspondente ao nível de significância *α*, p é a proporção e *E* a
+Em que *z<sub>α</sub>* é o percentil da distribuição normal
+correspondente ao nível de significância *α*, *p* é a proporção e *E* a
 margem de erro.
 </p>
 
@@ -191,7 +191,7 @@ EstPropPopInfinita <- function(proporcao){
 }
 ```
 
-**Exemplo:** Supondo *p* = 10, 5/1000.
+**Exemplo:** Supondo *p = 10,5/1000*.
 
 ``` r
 EstPropPopInfinita(10.5/1000)
@@ -207,7 +207,7 @@ EstPropPopInfinita(10.5/1000)
     ## 7   6%                     11.086610                       7.808311
     ## 8   7%                      8.145265                       5.736718
 
-**Exemplo:** Supondo o maior tamanho amostral possível (*p* = 0.5).
+**Exemplo:** Supondo o maior tamanho amostral possível *(p = 0.5)*.
 
 ``` r
 EstPropPopInfinita(0.5)
@@ -224,9 +224,9 @@ EstPropPopInfinita(0.5)
     ## 8   7%                      195.9928                       138.0379
 
 <p>
-Considerando um *E**r**r**o* = 5%, têm-se que *n* = 385, pelo exemplo
-anterior. Isto posto, realizando 1000 simulações é possível perceber que
-o intervalo com 95% de confiança têm a margem de erro esperada.
+Considerando um *Erro = 5%*, têm-se que *n = 385*, pelo exemplo
+anterior. Isto posto, realizando *1000* simulações é possível perceber que
+o intervalo com *95%* de confiança têm a margem de erro esperada.
 </p>
 
 ``` r
@@ -245,7 +245,7 @@ proporção de populações infinitas, é possível verificar se os erros
 reais correspondem aos erros estimados pela fórmula:
 </p>
 
-$n=\\frac{p(1-p)z^2\_\\alpha}{E^2} \\therefore E = Erro = \\sqrt\\frac{p(1-p)z^2\_\\alpha}{n}$
+*$n=\\frac{p(1-p)z^2\_\\alpha}{E^2} \\therefore E = Erro = \\sqrt\\frac{p(1-p)z^2\_\\alpha}{n}$*
 
 ``` r
 p = aux5 = aux10 = c()
@@ -293,22 +293,22 @@ Para calcular o tamanho amostral necessário para comparar duas
 proporções, foi utilizada a metodologia proposta por Fleiss, 1981, em
 que a quantidade total de indivíduos em cada grupo é dada por:
 
-$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2}{(p1-p2)^2}$
+*$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2}{(p1-p2)^2}$*
 
 <p>
 Onde:
 </p>
 
--   *p*1 é a proporção do evento no grupo 1.
--   *p*2 é a proporção do evento no grupo 2.(Vale ressaltar que *p*2 é
-    definido a partir do tamanho do efeito e de *p*1)
--   *q*1 = 1 − *p*1;
--   *q*2 = 1 − *p*2;
+-   *p1* é a proporção do evento no grupo 1.
+-   *p2* é a proporção do evento no grupo 2.(Vale ressaltar que *p2* é
+    definido a partir do tamanho do efeito e de *p1*)
+-   *q1 = 1 − p1*;
+-   *q2 = 1 − p2*;
 -   $\\overline{p} = \\frac{(p1+p2)}{2}$;
 -   $\\overline{q}$ = $1-\\overline{p}$;
--   *z*<sub>*α*</sub> é o percentil da distribuição normal
+-   *z<sub>α</sub>* é o percentil da distribuição normal
     correspondente ao nível de significância.
--   *z*<sub>*β*</sub> é o percentil da distribuição normal
+-   *z*<sub>β</sub>* é o percentil da distribuição normal
     correspondente ao poder do teste.
 
 ``` r
@@ -334,8 +334,8 @@ AmostraCompPropTransversal <- function (p1,TamanhodeEfeito,Significancia){
 }
 ```
 
-**Exemplo:** Supondo tamanho do efeito médio (*d*) = 0, 5, nível de
-significância (*α*) = 5% e *p*1 = 0, 50.
+**Exemplo:** Supondo tamanho do efeito médio *(d) = 0,5*, nível de
+significância *(α) = 5%* e *p1 = 0,50*.
 
 ``` r
 AmostraCompPropTransversal(0.5,0.5,0.05)
@@ -355,11 +355,11 @@ De acordo (J. Cohen 1988), pode-se definir o tamanho do efeito para
 comparações de proporções como:
 </p>
 
-$h={2arcsen(\\sqrt{p1})-2arcsen(\\sqrt{p2})}$
+*$h={2arcsen(\\sqrt{p1})-2arcsen(\\sqrt{p2})}$*
 
--   Efeito pequeno: *h* = 0,2;
--   Efeito médio: *h* = 0,5;
--   Efeito grande: *h* = 0,8.
+-   Efeito pequeno: *h = 0,2*;
+-   Efeito médio: *h = 0,5*;
+-   Efeito grande: *h = 0,8*.
 
 <p>
 Para calcular o tamanho da amostra para verificar a diferença da
@@ -371,23 +371,23 @@ comparações de dois grupos em respostas binárias para dados dependentes.
 Em que a quantidade total de indivíduos em cada grupo é dada por:
 </p>
 
-$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2 (1+(n-1)\\rho)}{n(p1-p2)^2}$
+*$N=\\frac{\[z\_\\alpha 2(\\overline{pq})^\\frac{1}{2} + 2z\_\\beta (p1q1 + p2q2)^\\frac{1}{2}\]^2 (1+(n-1)\\rho)}{n(p1-p2)^2}$*
 
 <p>
 Onde:
 </p>
 
--   *p*1 é a proporção do evento no grupo 1.
--   *p*2 é a proporção do evento no grupo 2.
--   *q*1 = 1 − *p*1;
--   *q*2 = 1 − *p*2;
+-   *p1* é a proporção do evento no grupo 1.
+-   *p2* é a proporção do evento no grupo 2.
+-   *q1 = 1 − p1*;
+-   *q2 = 1 − p2*;
 -   $\\overline{p} = \\frac{(p1+p2)}{2}$;
 -   $\\overline{q}$ = $1-\\overline{p}$;
 -   *ρ* é a correlação intraclasse.
 -   *n* é número de medidas no mesmo indivíduo.
--   *z*<sub>*α*</sub> é o percentil da distribuição normal
+-   *z<sub>α</sub>* é o percentil da distribuição normal
     correspondente ao nível de significância.
--   *z*<sub>*β*</sub> é o percentil da distribuição normal
+-   *z<sub>β</sub>* é o percentil da distribuição normal
     correspondente ao poder do teste.
 
 ``` r
@@ -412,9 +412,9 @@ AmostraCompPropLongitudinal <- function (p1,TamanhodeEfeito,Significancia,CorrIn
 }
 ```
 
-**Exemplo:** Supondo Tamanho do efeito médio (*h*) = 0, 5, Correlação
-Intraclasse(*ρ*) = 0, 5, *p*1 = 0, 10, nível de significância (*α*) = 5%
-e número de medidas no mesmo indivíduo (*n*) = 5.
+**Exemplo:** Supondo Tamanho do efeito médio *(h) = 0,5*, Correlação
+Intraclasse*(ρ) = 0,5*, *p1 = 0,10*, nível de significância *(α) = 5%*
+e número de medidas no mesmo indivíduo *(n) = 5*.
 
 ``` r
 AmostraCompPropLongitudinal(0.1,0.5,0.05,0.5,5)
@@ -444,22 +444,22 @@ A quantidade total de indivíduos em cada grupo considerando somente 2
 grupos é dada por:
 </p>
 
-$N= \\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2}{d^2}$
+*$N= \\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2}{d^2}$*
 
 <p>
 A quantidade total de indivíduos em cada grupo considerando mais 2
 grupos é dada por:
 </p>
 
-$N= \\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2}{d^2}$
+*$N= \\frac{2\\left(z\_{\\frac{\\alpha}{g}}+z\_\\beta\\right)^2}{d^2}$*
 
 <p>
 Onde:
 </p>
 
--   *z*<sub>*α*</sub> é o percentil da distribuição normal
+-   *z<sub>α</sub>* é o percentil da distribuição normal
     correspondente ao nível de significância;
--   *z*<sub>*β*</sub> é o percentil da distribuição normal
+-   *z<sub>β</sub>* é o percentil da distribuição normal
     correspondente ao poder do teste;
 -   *d* é o tamanho do efeito;
 -   *g* é o número de grupos.
@@ -475,7 +475,7 @@ da amostra necessário para o teste não paramétrico correspondente será,
 de acordo com (Lehmann 1975):
 </p>
 
-$N\*=\\frac{N}{0,955}$
+*$N\*=\\frac{N}{0,955}$*
 
 ``` r
 AmostraCompMedias2ouMaisGruposIndependentes <- function(TamanhodeEfeito,Significancia,NumeroGrupos){
@@ -496,8 +496,8 @@ AmostraCompMedias2ouMaisGruposIndependentes <- function(TamanhodeEfeito,Signific
 }
 ```
 
-**Exemplo:** Supondo tamanho do efeito médio (*d*) = 0, 5 e nível de
-significância (*α*) = 5%.
+**Exemplo:** Supondo tamanho do efeito médio *(d) = 0,5* e nível de
+significância *(α) = 5%*.
 
 ``` r
 AmostraCompMedias2ouMaisGruposIndependentes(0.5,0.05,2)
@@ -521,16 +521,16 @@ respostas contínuas para amostras pareadas.
 A quantidade total de indivíduos em cada grupo é dada por:
 </p>
 
-$N=\\frac{ \\left(t\_{n-1,\\frac{\\alpha}{2}}+t\_{n-1,\\frac{\\beta}{2}}\\right)}{d^2}$
+*$N=\\frac{ \\left(t\_{n-1,\\frac{\\alpha}{2}}+t\_{n-1,\\frac{\\beta}{2}}\\right)}{d^2}$*
 
 <p>
 Onde:
 </p>
 
--   $t\_{n-1,\\frac{\\alpha}{2}}$ é o percentil da distribuição t de
+-   *$t\_{n-1,\\frac{\\alpha}{2}}$* é o percentil da distribuição t de
     Student com *n* − 1 graus de liberdade correspondente ao nível de
     significância;
--   $t\_{n-1,\\frac{\\beta}{2}}$ é o percentil da distribuição *t* de
+-   *$t\_{n-1,\\frac{\\beta}{2}}$* é o percentil da distribuição *t* de
     Student com *n* − 1 graus de liberdade correspondente ao poder do
     teste;
 -   *d* é o tamanho do efeito.
@@ -550,7 +550,7 @@ necessário para o teste não paramétrico correspondente será, de acordo
 com Lehmann (1975):
 </p>
 
-$N\*=\\frac{N}{0,955}$
+*$N\*=\\frac{N}{0,955}$*
 
 ``` r
 AmostraCompMedias2GruposDependentes <- function(TamanhodeEfeito,Significancia){
@@ -569,8 +569,8 @@ AmostraCompMedias2GruposDependentes <- function(TamanhodeEfeito,Significancia){
 }
 ```
 
-**Exemplo:** Supondo tamanho do efeito grande (*d*) = 0, 8 e nível de
-significância (*α*) = 5%.
+**Exemplo:** Supondo tamanho do efeito grande *(d) = 0,8* e nível de
+significância *(α) = 5%*.
 
 ``` r
 AmostraCompMedias2GruposDependentes(0.8,0.05)
@@ -598,7 +598,7 @@ Para dois grupos, a quantidade total de indivíduos em cada grupo é dada
 por:
 </p>
 
-$N=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2(1+(n-1)\\rho)}{n\\left(\\frac{\\mu\_1-\\mu\_2}{\\sigma}\\right)^2}=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2 (1+(n-1)\\rho)}{nd^2}$
+*$N=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2(1+(n-1)\\rho)}{n\\left(\\frac{\\mu\_1-\\mu\_2}{\\sigma}\\right)^2}=\\frac{2\\left(z\_{\\alpha}+z\_\\beta\\right)^2 (1+(n-1)\\rho)}{nd^2}$*
 
 <p>
 Para mais de dois grupos, a quantidade total de indivíduos em cada grupo
